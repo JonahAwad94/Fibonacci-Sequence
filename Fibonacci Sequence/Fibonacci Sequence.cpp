@@ -1,4 +1,4 @@
-// See "README.md"
+ // See "README.md"
 
 #include "pch.h" //For visual studio 2017
 #include <iostream>
@@ -10,6 +10,7 @@ const int fibListSize = 100;
 unsigned long long int fib(int userInput);
 void fibList(int userInput, unsigned long long int FibListValues[]);
 void printList(unsigned long long int FibListValues[]);
+int getUserInput(int lowerBound, int upperBound);
 
 int main()
 {
@@ -26,31 +27,12 @@ int main()
 		<< "# 2. List values up to nth value #\n"
 		<< "# 3. Exit                        #\n"
 		<< "##################################" << endl;
-	int userChoice;
-	cin >> userChoice;
-
-	if (userChoice < 1 || userChoice > 3)
-	{
-		do {
-			cout << "That is out of range, please select a number between 1 and 3." << endl;
-			cin >> userChoice;
-		} while (userChoice < 1 || userChoice > 3);
-	}
+	int userChoice = getUserInput(1, 3);
 
 	if (userChoice == 1) // Find nth value
 	{
-		int userInput;
-		cout << "Enter n (Up to 93)." << endl;
-		cin >> userInput;
-
-		//Check Range
-		if (userInput < 1 || userInput > 93)
-		{
-			do {
-				cout << "That is out of range, please select a number between 1 and 93." << endl;
-				cin >> userInput;
-			} while (userInput <= 0 || userInput >= 93);
-		}
+		cout << "Enter a number to get nth value of Fibonacci Sequence. ";
+		int userInput = getUserInput(1,93);
 
 		//Calulate Result
 		unsigned long long int result = fib(userInput);
@@ -77,8 +59,7 @@ int main()
 
 		//Repeat or Exit Program
 		cout << "1. Go Back to Main Menu\n2. Exit" << endl;
-		int userChoice2;
-		cin >> userChoice2;
+		int userChoice2 = getUserInput(1, 2);
 
 		if (userChoice2 == 1)
 		{
@@ -90,26 +71,15 @@ int main()
 	}
 	else if (userChoice == 2) // List all values up to nth value
 	{
-		int userInput;
 		cout << "Enter a number to List fibonacci sequence to (Up to 93)." << endl;
-		cin >> userInput;
-
-		//Check Range
-		if (userInput < 1 || userInput > 93)
-		{
-			do {
-				cout << "That is out of range, please select a number between 1 and 93." << endl;
-				cin >> userInput;
-			} while (userInput <= 0 || userInput >= 93);
-		}
+		int userInput = getUserInput(1, 93);
 
 		fibList(userInput, fibListValues);
 		printList(fibListValues);
 
 		//Repeat or Exit Program
 		cout << "1. Go Back to Main Menu\n2. Exit" << endl;
-		int userChoice2;
-		cin >> userChoice2;
+		int userChoice2 = getUserInput(1, 2);
 
 		if (userChoice2 == 1)
 		{
@@ -193,4 +163,23 @@ void printList(unsigned long long int FibListValues[])
 	}
 	//format output
 	cout << endl << endl;
+}
+
+// Get user input, check if input is valid
+int getUserInput(int lowerBound, int upperBound)
+{
+	int num;
+	cin >> num;
+
+
+	if (num < lowerBound || num > upperBound)
+	{
+		do
+		{
+			cout << "That is not a valid input, enter a number between " << lowerBound << " and " << upperBound <<". ";
+			cin >> num;
+		} while (num < lowerBound || num > upperBound);
+	}
+
+	return num;
 }
